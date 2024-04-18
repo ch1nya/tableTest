@@ -3,6 +3,8 @@ import { Button, Form, Table } from 'antd';
 import ModalBody from "./ModalBody";
 import {defaultDataSource} from "../data";
 import {DeleteOutlined, PlusOutlined} from "@ant-design/icons";
+import s from '../styles/TableBody.module.css'
+
 const EditableContext = React.createContext(null);
 const EditableRow = ({ index, ...props }) => {
     const [form] = Form.useForm();
@@ -84,7 +86,7 @@ const TableBody = ({houseNumber}) => {
     }, []);
 
     return (
-        <div>
+        <div className={s.mainTableContainer}>
             {isAdding && <ModalBody setCustomizedDataSourse={setCustomizedDataSourse}
                                     setModalTableState={setModalTableState}
                                     modalTableState={modalTableState}
@@ -98,27 +100,25 @@ const TableBody = ({houseNumber}) => {
                                     tableData = {tableData}
                                     isAdding={isAdding}
                                     setIsAdding={setIsAdding}/>}
-            <div className='tableHeader' style={{display:'flex', justifyContent:"space-between"}}>
-                <h3 style={{margin: "0 0 0 15px"}}>Дом №{houseNumber}</h3>
-                <div className='tableHeader-button-container'>
+            <div className={s.mainTableHeader}>
+                <h3>Дом №{houseNumber}</h3>
+                <div className={s.mainTableHeaderButtonContainer}>
                     <Button
                         onClick={handleAddButton}
                         type="primary"
-                        style={{margin: 5}}
                     >
                         <PlusOutlined/>
                     </Button>
                     <Button
                         onClick={handleDeleteData}
                         type="primary"
-                        style={{margin: 5}}
                     >
                         <DeleteOutlined />
                     </Button>
                 </div>
             </div>
 
-            <Table style={{ borderRadius: 15, border: "3px solid", paddingBottom:5, backgroundColor:'white',}}
+            <Table className={s.mainTableBody}
                    components={components}
                    rowClassName={() => 'editable-row'}
                    bordered

@@ -2,7 +2,15 @@ import React, {useEffect, useState} from 'react';
 import {Modal, theme} from 'antd';
 import {ModalDrawer} from "./ModalDrawer";
 import {ModalTable} from "./ModalTable";
+import s from'../styles/ModalBody.module.css'
+
 const ModalBody = ({setCustomizedDataSourse,modalTableState,setModalTableState,isAdding,setIsAdding,tableData,setCount,count,dataSource,setDataSource,setDrawerTableState,drawerTableState}) => {
+    const { token } = theme.useToken();
+    const containerStyle = {
+        background: token.colorFillAlter,
+        border: `1px solid ${token.colorBorderSecondary}`,
+        borderRadius: token.borderRadiusLG,
+    };
 
     const handleOk = () => {
         setIsAdding(false);
@@ -19,21 +27,7 @@ const ModalBody = ({setCustomizedDataSourse,modalTableState,setModalTableState,i
     const handleCancel = () => {
         setIsAdding(false);
     };
-    const { token } = theme.useToken();
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
-    const containerStyle = {
-        position: 'relative',
-        height: "fitContent",
-        width: "100%",
-        padding: "0rem",
-        overflow: 'hidden',
-        background: token.colorFillAlter,
-        border: `1px solid ${token.colorBorderSecondary}`,
-        borderRadius: token.borderRadiusLG,
-        fontSize: "10px",
-        display:'flex'
-    };
-
     useEffect(() => {
         const handleKeyPress = (event) => {
             if (event.key === 'Enter' || event.key === 'Ctrl') {
@@ -46,7 +40,7 @@ const ModalBody = ({setCustomizedDataSourse,modalTableState,setModalTableState,i
         };
     }, []);
     return (
-        <div style={{height: "50vh",width: "50vw", position:'absolute'}}>
+        <div style={s.ModalContainer}>
             <Modal
                 open={isAdding}
                 onOk={handleOk}
@@ -60,7 +54,7 @@ const ModalBody = ({setCustomizedDataSourse,modalTableState,setModalTableState,i
                 keyboard={true}
                 width={'35rem'}
             >
-                <div style={containerStyle}>
+                <div style={{...s.ModalDrawerContainer,...containerStyle }}>
                     <ModalTable setModalTableState={setModalTableState}
                                 setDrawerIsOpen={setDrawerIsOpen}
                                 dataSource={tableData}/>
