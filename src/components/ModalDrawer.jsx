@@ -1,7 +1,6 @@
-import {Drawer, Table, theme} from "antd";
-import React, {useEffect, useState} from "react";
+import {Drawer} from "antd";
+import React, {useEffect} from "react";
 import DrawerTable from "./DrawerTable";
-import drawerTable from "./DrawerTable";
 
 export function ModalDrawer({tableData,setDrawerIsOpen, drawerIsOpen,setDrawerTableState,drawerTableState}) {
 
@@ -21,7 +20,7 @@ export function ModalDrawer({tableData,setDrawerIsOpen, drawerIsOpen,setDrawerTa
         return () => {
             document.removeEventListener('keydown', handleKeyPress);
         };
-    }, []);
+    }, [setDrawerIsOpen]);
     return (
         <Drawer placement="right"
                 closable={true}

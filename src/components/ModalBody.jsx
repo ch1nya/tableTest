@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Modal, theme} from 'antd';
 import {ModalDrawer} from "./ModalDrawer";
 import {ModalTable} from "./ModalTable";
@@ -20,10 +20,15 @@ const ModalBody = ({setCustomizedDataSourse,modalTableState,setModalTableState,i
         display: "flex",
 
     };
+    const ModalContainer = {
+        height: "50vh",
+        width: "50vw",
+        position:"absolute"
+    }
 
-    const handleOk = () => {
+    const handleOk = useCallback(() => {
         setIsAdding(false);
-        const arrayToString =  drawerTableState.map(obj=>Number(obj.key)+1).join(', ')
+        const arrayToString = drawerTableState.map(obj => Number(obj.key) + 1).join(', ')
         setCustomizedDataSourse(prev => [
             ...(prev || []),
             {
@@ -32,10 +37,15 @@ const ModalBody = ({setCustomizedDataSourse,modalTableState,setModalTableState,i
                 flatNumber: arrayToString
             }
         ]);
-    };
-    const handleCancel = () => {
-        setIsAdding(false);
-    };
+    }, [drawerTableState, modalTableState, setIsAdding, setCustomizedDataSourse]);
+    const handleCancel  = useCallback(
+        () => {
+            setIsAdding(false);
+        },
+        [setIsAdding],
+    );
+
+
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
     useEffect(() => {
         const handleKeyPress = (event) => {
@@ -47,11 +57,9 @@ const ModalBody = ({setCustomizedDataSourse,modalTableState,setModalTableState,i
         return () => {
             document.removeEventListener('keydown', handleKeyPress);
         };
-    }, []);
+    }, [handleOk,handleCancel]);
     return (
-        <div
-            // style={s.ModalContainer}
-        >
+        <div style={ModalContainer}>
             <Modal
                 open={isAdding}
                 onOk={handleOk}

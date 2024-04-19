@@ -54,7 +54,7 @@ const DrawerTable = ({setDrawerIsOpen,setDrawerTableState,drawerIsOpen}) => {
         return () => {
             document.removeEventListener('keydown', handleKeyPress);
         };
-    }, [selectedRowIndex, dataSourse]);
+    }, [selectedRowIndex]);
 
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {

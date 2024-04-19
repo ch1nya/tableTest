@@ -3,8 +3,3 @@
  поэтому стиль прописан инлайн в одноименной компоненте
  */
 }
-.ModalContainer {
-    height: 50vh;
-    width: 50vw;
-    position:absolute
-}
